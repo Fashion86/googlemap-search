@@ -1,0 +1,80 @@
+<app-header></app-header>
+<div class="container main-content">
+    <div class="section1" *ngIf="!startflag">
+        <div class="">
+            <h1><p>Create a quiz for anything test</p></h1>
+            <p>
+            Make assessments simple and fast with automatic scoring.
+            </p>
+            <button mdbBtn type="button" color="info" outline="true" (click)="onStart()" mdbWavesEffect [disabled]="startflag">
+                <h4>Start the Quiz</h4>
+            </button>
+        </div>
+    </div>
+    <div class="container" *ngIf="startflag" style="text-align: center">
+        <!-- Horizontal Steppers -->
+        <div class="row">
+            <div class="col-md-12">
+                <br>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{'width': passedNum + '%'}" aria-valuenow="{{passedNum}}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <br>
+            </div>
+            <div class="col-md-12" *ngIf="complete">
+                <ul class="nav lighten-4 font-weight-bold units" style="float: right">
+                    <li class="nav-item">
+                        <button mdbBtn type="button" color="info" (click)="showResult()" outline="true" mdbWavesEffect>
+                            <!--<fa name="heart" style="color: red;"></fa> -->
+                            View Answer
+                        </button>
+                    </li>
+                </ul>
+                <br>
+                <div>
+                   <h3>Your Score: {{mark}}</h3>
+                </div>
+                <div *ngIf="showresult">
+                    <div *ngFor="let question of questions; let i = index">
+                        <br>
+                        <p>
+                            <strong>{{question.question}}</strong>
+                        </p>
+                        <p class="q-body" *ngFor="let option of question.options">
+                            {{option}}
+                        </p>
+                        <p class="q-body"><strong>Correct Answer: {{question.answer}}</strong></p>
+                        <p class="q-body"><strong>Your Answer: {{question.user_answer}}</strong></p>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <div class="col-md-12" *ngIf="!complete">
+                <p>
+                    <strong>Question {{currentQuestion.id}}: </strong>
+                    {{currentQuestion.question}}
+                </p>
+
+                <div class="q-body">
+                    <div class="custom-control custom-radio" *ngFor="let option of currentQuestion.options; let i = index">
+                        <input type="radio" class="custom-control-input" [value]="option"
+                               [(ngModel)]="currentQuestion.user_answer" id="answer-{{currentQuestion.id}}-{{i}}" name="answer" mdbInput>
+                        <label class="custom-control-label" for="answer-{{currentQuestion.id}}-{{i}}"><strong>{{option}}</strong></label>
+                    </div>
+                </div>
+                <button *ngIf="currentQuestion.id > 1" mdbBtn type="button" color="info" outline="true" (click)="onPreview()" mdbWavesEffect>
+                    Back
+                </button>
+                <button *ngIf="currentQuestion.id != 5" mdbBtn type="button" color="info" outline="true" (click)="onNext()" mdbWavesEffect [disabled]="currentQuestion.user_answer?false:true">
+                    Next
+                </button>
+                <button *ngIf="currentQuestion.id == 5" mdbBtn type="button" color="info" outline="true" (click)="onComplete()" mdbWavesEffect [disabled]="currentQuestion.user_answer?false:true">
+                    Complete
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<app-footer></app-footer>

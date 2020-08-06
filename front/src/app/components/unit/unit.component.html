@@ -1,0 +1,89 @@
+<app-header></app-header>
+<div class="container main-content">
+    <div class="row">
+        <ul class="nav lighten-4 font-weight-bold units" style="float: right">
+            <li class="nav-item">
+                <button mdbBtn type="button" color="info" outline="true" mdbWavesEffect>
+                    <fa name="heart" style="color: red;"></fa> Help Me
+                </button>
+            </li>
+            <li class="nav-item">
+                <button mdbBtn type="button" color="info" outline="true" mdbWavesEffect>
+                    <fa name="lightbulb"></fa> Suggest
+                </button>
+            </li>
+            <li class="nav-item">
+                <button mdbBtn type="button" color="info" outline="true" mdbWavesEffect>
+                    <fa name="thumbs-up"></fa> Info
+                </button>
+            </li>
+        </ul>
+    </div>
+        <!-- Horizontal Steppers -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Stepers Wrapper -->
+                <div class="row stepper stepper-horizontal">
+                    <!-- First Step -->
+                    <div class="col completed">
+                        <a href="#!" style="margin:auto">
+                            <span class="circle">1</span>
+                            <span class="label">Question 1</span>
+                        </a>
+                    </div>
+                    <!-- Second Step -->
+                    <div class="col disabled">
+                        <a href="#!" style="margin:auto">
+                            <span class="circle">2</span>
+                            <span class="label">Question 3</span>
+                        </a>
+                    </div>
+                    <!-- Third Step -->
+                    <div class="col disabled">
+                        <a href="#!" style="margin:auto">
+                            <span class="circle">3</span>
+                            <span class="label">Question 3</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- /.Stepers Wrapper -->
+
+            </div>
+        </div>
+        <!-- /.Horizontal Steppers -->
+
+    <div class="row" style="margin-bottom:30px;">
+        <div class="col-sm-12" >
+            <div class="d-flex p-2 flex-center" style="background-color:#46BFBD">
+                <span style="font-size:24px; margin:20px;">What is the correct way to increment by one?</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row options">
+        <div class="col-sm-6">
+            <button (click)="clickOptions(1)" mdbBtn type="button" color="grey" outline="true" mdbWavesEffect class="option1 btn-full-rounded">The right way to do something</button>
+        </div>
+        <div class="col-sm-6">
+            <button (click)="clickOptions(2)" mdbBtn type="button" color="grey" outline="true" mdbWavesEffect class="option2 btn-full-rounded">Any procedure or function that is part of a class</button>
+        </div>
+        <div class="col-sm-6">
+            <button (click)="clickOptions(3)" mdbBtn type="button" color="grey" outline="true" mdbWavesEffect class="option3 btn-full-rounded">The only way to do something</button>
+        </div>
+        <div class="col-sm-6">
+            <button (click)="clickOptions(4)" mdbBtn type="button" color="grey" outline="true" mdbWavesEffect class="option4 btn-full-rounded">A function that calls itself recursively</button>
+        </div>
+    </div>
+
+    <div style="margin-top: 60px;">
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+        </div>
+        <div class="col-sm-6">
+            <button mdbBtn type="button" color="blue" mdbWavesEffect hidden class="next-question btn-full-rounded">Next Question</button>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

@@ -1,67 +1,43 @@
-import * as $ from 'jquery';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { AppRoutes } from './app.routing';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AppComponent } from './app.component';
 
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { FullComponent } from './layouts/full/full.component';
-import { AppBlankComponent } from './layouts/blank/blank.component';
-import { AppHeaderComponent } from './layouts/full/header/header.component';
-import { AppSidebarComponent } from './layouts/full/sidebar/sidebar.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DemoMaterialModule } from './demo-material-module';
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './components/home/home.component';
 
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { AppRoutingModule } from './app-routing.module';
+import { UnitComponent } from './components/unit/unit.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { HttpClientModule } from '@angular/common/http';
+import { HeaderComponent } from './components/layout/header/header.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
 
-import { SharedModule } from './shared/shared.module';
-import { SpinnerComponent } from './shared/spinner.component';
-import { ConfirmDlgComponent } from './forum/confirm-dlg/confirm-dlg.component';
-import { LoginComponent } from './authentication/login/login.component';
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true,
-  wheelSpeed: 2,
-  wheelPropagation: true
-};
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FullComponent,
-    AppHeaderComponent,
-    SpinnerComponent,
-    AppBlankComponent,
-    AppSidebarComponent,
-    ConfirmDlgComponent,
-    LoginComponent
+    HomeComponent,
+    UnitComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
-    DemoMaterialModule,
+    MDBBootstrapModule.forRoot(),
     FormsModule,
-    FlexLayoutModule,
-    HttpClientModule,
-    PerfectScrollbarModule,
-    SharedModule,
     ReactiveFormsModule,
-    NgMultiSelectDropDownModule.forRoot(),
-    RouterModule.forRoot(AppRoutes, { useHash: false })
+    AngularFontAwesomeModule,
+    HttpClientModule,
+    MatStepperModule
   ],
-  exports: [RouterModule],
-  providers: [
-    {
-      provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }
-  ],
-  entryComponents: [ConfirmDlgComponent, LoginComponent],
-  bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [AppComponent],
+  schemas: [ NO_ERRORS_SCHEMA ]
 })
-export class AppModule {}
+export class AppModule { }
