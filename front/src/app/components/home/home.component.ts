@@ -10,7 +10,8 @@ import {Question} from '../../models/question';
 })
 
 export class HomeComponent implements OnInit {
-
+  lat = 51.678418;
+  lng = 7.809007;
   startflag = false;
   questions: Question[] = [];
   currentQuestion: Question;
@@ -24,12 +25,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.currentQuestion = new Question();
-    // this.http.get('/assets/questions.json', { headers: new HttpHeaders()
-    //     .set('Content-Type', 'application/json')
-    //   , responseType: 'text' }).subscribe((res) => {
-    //     this.questions = JSON.parse(res)['quiz'];
-    //     this.currentQuestion = this.questions[0];
-    // });
+    this.http.get('/assets/questions.json', { headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+      , responseType: 'text' }).subscribe((res) => {
+        this.questions = JSON.parse(res)['quiz'];
+        this.currentQuestion = this.questions[0];
+    });
   }
 
   onStart() {

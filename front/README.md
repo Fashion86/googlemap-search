@@ -1,27 +1,26 @@
-# Material
+# Quiz-app
+This is small Quiz app
 
-This project was generated with [Angular 7 CLI](https://github.com/angular/angular-cli) version 7.0.2
+Please use the following questions to build a simple quiz app. Initial score will be 0, each correct answer should add 1 point to the score, and show the final score once the quiz is completed.
 
-## Development server
+The app should be a single page app, which starts with a welcome screen, click "Start the Quiz" button on the welcome screen to show questions. Only show one question at a time, and each question need to have 4 available options (radio buttons) for user to select. Once user finishes the last question, show the final score.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Question 1: Which is the largest country in the world by population?
+Options: India, USA, China, Russia
+Correct Answer: China
 
-## Code scaffolding
+Question 2: When did the second world war end?
+Options: 1945, 1939, 1944, 1942
+Correct Answer: 1945
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Question 3: Which was the first country to issue paper currency?
+Options: USA, France, Italy, China
+Correct Answer: China
 
-## Build
+Question 4: Which city hosted the 1996 Summer Olympics?
+Options: Atlanta, Sydney, Athens, Beijing
+Correct Answer: Atlanta
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular 6 CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Question 5: Who invented telephone?
+Options: Albert Einstein, Alexander Graham Bell, Isaac Newton, Marie Curie
+Correct Answer: Alexander Graham Bell
