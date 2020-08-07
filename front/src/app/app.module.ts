@@ -9,7 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 
 import { AppRoutingModule } from './app-routing.module';
-import { UnitComponent } from './components/unit/unit.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/layout/header/header.component';
@@ -22,7 +21,6 @@ import { AgmCoreModule } from '@agm/core';
   declarations: [
     AppComponent,
     HomeComponent,
-    UnitComponent,
     HeaderComponent,
     FooterComponent
   ],
