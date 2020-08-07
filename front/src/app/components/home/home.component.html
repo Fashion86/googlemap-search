@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="container-fluid">
-    <div *ngIf="viewMode == 'map'" class="row map-view">
+    <div class="row map-view">
       <div class="col-sm-4 card-section row">
         <div class="col-md-12 col-lg-6 mapcard" *ngFor="let data of datas">
           <mdb-card>
@@ -19,20 +19,22 @@
                 content.
               </mdb-card-text>
 
-              <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+              <a href="#" mdbBtn color="primary" mdbWavesEffect>View Detail</a>
             </mdb-card-body>
           </mdb-card>
         </div>
       </div>
       <div class="col-sm-8 map-section">
-        <agm-map [latitude]="lat" [longitude]="lng">
-          <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-        </agm-map>
-      </div>
-    </div>
-    <div *ngIf="viewMode == 'photo'" class="container">
-      <div class="photo-view">
-
+        <div #map id="agm-map"></div>
+<!--        <agm-map #agmMap-->
+<!--          [streetViewControl] = 'false'-->
+<!--          [disableDefaultUI]="false"-->
+<!--          [mapTypeControl]='false'-->
+<!--          [zoomControlOptions]="zoomControlOptions"-->
+<!--          [zoom]="10"-->
+<!--          [latitude]="lat" [longitude]="lng">-->
+<!--          <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>-->
+<!--        </agm-map>-->
       </div>
     </div>
 </div>

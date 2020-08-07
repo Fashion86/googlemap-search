@@ -15,7 +15,7 @@ import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 
 import {MatStepperModule} from '@angular/material/stepper';
-import { AgmCoreModule } from '@agm/core';
+// import { AgmCoreModule } from '@agm/core';
 import { PhotoViewComponent } from './components/photo-view/photo-view.component';
 import { GalleryViewComponent } from './components/gallery-view/gallery-view.component';
 
@@ -38,9 +38,9 @@ import { GalleryViewComponent } from './components/gallery-view/gallery-view.com
     AngularFontAwesomeModule,
     HttpClientModule,
     MatStepperModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAxDvDpdQFlHZId5Z0W3HSWVrRygGNutu0'
-    })
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'AIzaSyAxDvDpdQFlHZId5Z0W3HSWVrRygGNutu0'
+    // })
   ],
   providers: [],
   bootstrap: [AppComponent],
