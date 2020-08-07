@@ -39,7 +39,7 @@ import { GalleryViewComponent } from './components/gallery-view/gallery-view.com
     HttpClientModule,
     MatStepperModule,
     // AgmCoreModule.forRoot({
-    //   apiKey: 'AIzaSyAxDvDpdQFlHZId5Z0W3HSWVrRygGNutu0'
+    //   apiKey: ''
     // })
   ],
   providers: [],
