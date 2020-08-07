@@ -16,13 +16,17 @@ import { FooterComponent } from './components/layout/footer/footer.component';
 
 import {MatStepperModule} from '@angular/material/stepper';
 import { AgmCoreModule } from '@agm/core';
+import { PhotoViewComponent } from './components/photo-view/photo-view.component';
+import { GalleryViewComponent } from './components/gallery-view/gallery-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    PhotoViewComponent,
+    GalleryViewComponent
   ],
   imports: [
     BrowserModule,

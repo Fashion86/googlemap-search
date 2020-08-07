@@ -14,3 +14,18 @@
     flex-direction: row;
   }
 }
+
+agm-map {
+  width: 100%;
+  height: 85vh;
+}
+
+.map-view {
+  .card-section {
+    max-height: 85vh;
+    overflow: auto;
+  }
+}
+.mapcard {
+  padding: 10px;
+}

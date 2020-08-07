@@ -11,11 +11,16 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class HomeComponent implements OnInit {
   lat = 51.678418;
   lng = 7.809007;
-  startflag = false;
+  viewMode = 'map';
+  datas = ['dddd', 'gggg', 'hhh', 'ppppp', 'dddd', 'gggg', 'hhh', 'ppppp'];
   constructor(private http: HttpClient, private _formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
 
+  }
+
+  onChangeMode(mode) {
+    this.viewMode = mode;
   }
 }

@@ -1,27 +1,39 @@
 <app-header></app-header>
 <div class="container-fluid">
-    <div class="container">
-      <div class="top-control">
-        <div>
-<!--          <button mdbBtn type="button" color="primary" outline="true" size="sm" mdbWavesEffect>Left</button>-->
-        </div>
-        <div class="btn-group" role="group" aria-label="Basic">
-          <button mdbBtn type="button" color="primary" outline="true" size="sm" mdbWavesEffect>Left</button>
-          <button mdbBtn type="button" color="primary" outline="true" size="sm" mdbWavesEffect>Middle</button>
-          <button mdbBtn type="button" color="primary" outline="true" size="sm" mdbWavesEffect>Right</button>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-3">
+    <div *ngIf="viewMode == 'map'" class="row map-view">
+      <div class="col-sm-4 card-section row">
+        <div class="col-md-12 col-lg-6 mapcard" *ngFor="let data of datas">
+          <mdb-card>
+            <!--Card image-->
+            <mdb-card-img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap"></mdb-card-img>
+            <!--Card content-->
+            <mdb-card-body>
 
+              <!--Title-->
+              <mdb-card-title>
+                <h4>Card Title</h4>
+              </mdb-card-title>
+
+              <!--Text-->
+              <mdb-card-text> Some quick example text to build on the card title and make up the bulk of the card's
+                content.
+              </mdb-card-text>
+
+              <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+            </mdb-card-body>
+          </mdb-card>
+        </div>
       </div>
-      <div class="col-sm-9">
+      <div class="col-sm-8 map-section">
         <agm-map [latitude]="lat" [longitude]="lng">
           <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
         </agm-map>
       </div>
     </div>
+    <div *ngIf="viewMode == 'photo'" class="container">
+      <div class="photo-view">
+
+      </div>
+    </div>
 </div>
 
-<!--<app-footer></app-footer>-->

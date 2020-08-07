@@ -9,3 +9,17 @@
   color: white !important;
   //text-decoration: underline !important;
 }
+
+.top-control {
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  //border-bottom: #636b6f solid 1px;
+  .btn-group {
+    //float: right;
+    button {
+      font-size: 15px;
+    }
+  }
+}
