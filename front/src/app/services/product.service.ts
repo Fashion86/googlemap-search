@@ -11,7 +11,7 @@ export class ProductService {
   constructor(private _http: HttpClient) { }
 
   getPropertyList(query?: string): Observable<any> {
-    return this._http.get<any>(`${this.baseUrl}/aproperty${query ? '?query=' + encodeURIComponent(query) : ''}`, {
+    return this._http.get<any>(`${this.baseUrl}/property${query ? '?query=' + encodeURIComponent(query) : ''}`, {
       headers: {
         'Content-Type': 'application/json'
       }});

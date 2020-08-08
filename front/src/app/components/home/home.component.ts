@@ -12,7 +12,7 @@ import {ProductService} from '../../services/product.service';
 export class HomeComponent implements OnInit {
   lat = 51.678418;
   lng = 7.809007;
-  datas = ['dddd', 'gggg', 'hhh', 'ppppp', 'dddd', 'gggg', 'hhh', 'ppppp'];
+  datas: any[] = [];
   @ViewChild('map') mapElement: any;
   map: google.maps.Map;
 
@@ -45,8 +45,20 @@ export class HomeComponent implements OnInit {
   }
 
   getPropertyList(): void {
-    this._productService.getPropertyList(null).subscribe(data => {
-      console.log('ddddddddd', data);
+    this._productService.getPropertyList(null).subscribe(res => {
+      if (res['success']) {
+        this.datas = res['data'];
+        this.datas.forEach(d => {
+          const marker = new google.maps.Marker({
+            position: new google.maps.LatLng(d.latitude.toPrecision(), d.longitude.toPrecision()),
+            map: this.map
+          });
+          google.maps.event.addListener(marker, 'click', () => {
+            this.map.setZoom(9);
+            this.map.setCenter(marker.getPosition());
+          });
+        });
+      }
     });
   }
 }
