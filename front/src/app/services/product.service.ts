@@ -11,10 +11,14 @@ export class ProductService {
   constructor(private _http: HttpClient) { }
 
   getPropertyList(query?: string): Observable<any> {
-    // return this._http.get<any>(`${this.baseUrl}'/property/?query=' + ${query}}`);
-    return this._http.get(this.baseUrl + '/property')
-      .pipe(
-        map((response: Response) => response)
-      );
+    return this._http.get<any>(`${this.baseUrl}/aproperty${query ? '?query=' + encodeURIComponent(query) : ''}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      }});
+
+    // return this._http.get(this.baseUrl + '/login', {responseType: 'json'})
+    //   .pipe(
+    //     map((response: Response) => response)
+    //   );
   }
 }

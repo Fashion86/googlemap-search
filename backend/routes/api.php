@@ -23,5 +23,5 @@ Route::group([
     Route::post('login', 'AuthController@login');
     Route::post('register', 'AuthController@registerUser');
     Route::post('forgotpasswd', 'PasswordResetController@create');
-    Route::post('property', 'PropertyController@getproperties');
+    Route::get('property', 'PropertyController@getproperties');
 });

@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
   }
 
   getPropertyList(): void {
-    this._productService.getPropertyList().subscribe(data => {
+    this._productService.getPropertyList(null).subscribe(data => {
       console.log('ddddddddd', data);
     });
   }
