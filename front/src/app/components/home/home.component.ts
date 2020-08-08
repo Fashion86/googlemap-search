@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ZoomControlOptions, ControlPosition, ZoomControlStyle} from '@agm/core/services/google-maps-types';
 import {} from 'googlemaps';
+import {ProductService} from '../../services/product.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -16,12 +16,13 @@ export class HomeComponent implements OnInit {
   @ViewChild('map') mapElement: any;
   map: google.maps.Map;
 
-  constructor(private http: HttpClient, private _formBuilder: FormBuilder) {
+  constructor(private http: HttpClient, private _formBuilder: FormBuilder, private _productService: ProductService) {
   }
 
   ngOnInit() {
+    this.getPropertyList();
     const mapProperties = {
-      center: new google.maps.LatLng(35.2271, -80.8431),
+      center: new google.maps.LatLng(this.lat, this.lng),
       zoom: 10,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControl: false,
@@ -32,20 +33,20 @@ export class HomeComponent implements OnInit {
       },
     };
     this.map = new google.maps.Map(this.mapElement.nativeElement,    mapProperties);
-    // let flightPlanCoordinates = [
-    //   {lat: 37.772, lng: -122.214},
-    //   {lat: 21.291, lng: -157.821},
-    //   {lat: -18.142, lng: 178.431},
-    //   {lat: -27.467, lng: 153.027}
-    // ];
-    // var flightPath = new google.maps.Polyline({
-    //   path: flightPlanCoordinates,
-    //   geodesic: true,
-    //   strokeColor: '#FF0000',
-    //   strokeOpacity: 1.0,
-    //   strokeWeight: 2
-    // });
-    //
-    // flightPath.setMap(map);
+    const marker = new google.maps.Marker({
+      position: new google.maps.LatLng(this.lat, this.lng),
+      map: this.map
+    });
+    google.maps.event.addListener(marker, 'click', () => {
+      this.map.setZoom(9);
+      this.map.setCenter(marker.getPosition());
+    });
+
+  }
+
+  getPropertyList(): void {
+    this._productService.getPropertyList().subscribe(data => {
+      console.log('ddddddddd', data);
+    });
   }
 }
