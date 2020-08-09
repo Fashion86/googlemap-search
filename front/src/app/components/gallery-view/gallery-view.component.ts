@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {FormBuilder} from "@angular/forms";
+import {ProductService} from "../../services/product.service";
 
 @Component({
   selector: 'app-gallery-view',
@@ -7,10 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GalleryViewComponent implements OnInit {
 
-  datas = ['dddd', 'gggg', 'hhh', 'ppppp', 'dddd', 'gggg', 'hhh', 'ppppp'];
-  constructor() { }
+  datas: any[] = [];
+  constructor(private http: HttpClient, private _formBuilder: FormBuilder, private _productService: ProductService) { }
 
   ngOnInit() {
+    this.getPropertyList();
   }
 
+  getPropertyList(): void {
+    this._productService.getPropertyList(null).subscribe(res => {
+      if (res['success']) {
+        this.datas = res['data'];
+      }
+    });
+  }
 }

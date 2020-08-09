@@ -10,8 +10,8 @@ import {ProductService} from '../../services/product.service';
 })
 
 export class HomeComponent implements OnInit {
-  lat = 51.678418;
-  lng = 7.809007;
+  lat = 47.9240641967;
+  lng = -118.2736372948;
   datas: any[] = [];
   @ViewChild('map') mapElement: any;
   map: google.maps.Map;
@@ -33,14 +33,6 @@ export class HomeComponent implements OnInit {
       },
     };
     this.map = new google.maps.Map(this.mapElement.nativeElement,    mapProperties);
-    const marker = new google.maps.Marker({
-      position: new google.maps.LatLng(this.lat, this.lng),
-      map: this.map
-    });
-    google.maps.event.addListener(marker, 'click', () => {
-      this.map.setZoom(9);
-      this.map.setCenter(marker.getPosition());
-    });
 
   }
 
@@ -50,12 +42,28 @@ export class HomeComponent implements OnInit {
         this.datas = res['data'];
         this.datas.forEach(d => {
           const marker = new google.maps.Marker({
-            position: new google.maps.LatLng(d.latitude.toPrecision(), d.longitude.toPrecision()),
+            position: new google.maps.LatLng(Number(parseFloat(d.latitude).toFixed(10)), Number(parseFloat(d.longitude).toFixed(10))),
             map: this.map
           });
           google.maps.event.addListener(marker, 'click', () => {
-            this.map.setZoom(9);
+            this.map.setZoom(12);
             this.map.setCenter(marker.getPosition());
+          });
+          const contentString = '<div id="content">' +
+            '<div id="siteNotice">' +
+            '</div>' +
+            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+            '</div>' +
+            '</div>';
+
+          const infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+          google.maps.event.addListener(marker, 'mouseover', () => {
+            infowindow.open(this.map, marker);
+          });
+          google.maps.event.addListener(marker, 'mouseout', () => {
+            infowindow.close();
           });
         });
       }

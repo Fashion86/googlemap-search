@@ -5,36 +5,32 @@
         <div class="col-md-12 col-lg-6 mapcard" *ngFor="let data of datas">
           <mdb-card>
             <!--Card image-->
-            <mdb-card-img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap"></mdb-card-img>
+            <mdb-card-img src="https://bt-photos.global.ssl.fastly.net/sarmls/320_boomver_2_202020069-1.jpg" alt="Card image cap"></mdb-card-img>
             <!--Card content-->
             <mdb-card-body>
 
               <!--Title-->
               <mdb-card-title>
-                <h4>Card Title</h4>
+                <h7>{{data.area}} | {{data.city}}</h7>
+                <h4><strong>${{data.listprice | number}}</strong></h4>
               </mdb-card-title>
 
               <!--Text-->
-              <mdb-card-text> Some quick example text to build on the card title and make up the bulk of the card's
-                content.
+              <mdb-card-text>
+                <div class="property-info">
+                  <span *ngIf="data.beds > 0"><strong>{{data.beds}}</strong> bd</span>
+                  <span *ngIf="data.baths > 0"><strong>{{data.baths}}</strong> ba</span>
+                  <span *ngIf="data.sqft > 0"><strong>{{data.sqft}}</strong> sqft</span>
+                </div>
               </mdb-card-text>
 
-              <a href="#" mdbBtn color="primary" mdbWavesEffect>View Detail</a>
+<!--              <a href="#" mdbBtn color="primary" mdbWavesEffect>View Detail</a>-->
             </mdb-card-body>
           </mdb-card>
         </div>
       </div>
       <div class="col-sm-8 map-section">
         <div #map id="agm-map"></div>
-<!--        <agm-map #agmMap-->
-<!--          [streetViewControl] = 'false'-->
-<!--          [disableDefaultUI]="false"-->
-<!--          [mapTypeControl]='false'-->
-<!--          [zoomControlOptions]="zoomControlOptions"-->
-<!--          [zoom]="10"-->
-<!--          [latitude]="lat" [longitude]="lng">-->
-<!--          <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>-->
-<!--        </agm-map>-->
       </div>
     </div>
 </div>
