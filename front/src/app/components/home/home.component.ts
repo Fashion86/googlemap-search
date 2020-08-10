@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   datas: any[] = [];
   @ViewChild('map') mapElement: any;
   map: google.maps.Map;
-
+  drawingManager: any;
   constructor(private http: HttpClient, private _formBuilder: FormBuilder, private _productService: ProductService) {
   }
 
@@ -34,6 +34,24 @@ export class HomeComponent implements OnInit {
     };
     this.map = new google.maps.Map(this.mapElement.nativeElement,    mapProperties);
     this.getPropertyList();
+    this.drawingManager = new google.maps.drawing.DrawingManager({
+      drawingMode: google.maps.drawing.OverlayType.POLYGON,
+      drawingControl: true,
+      drawingControlOptions: {
+        position: google.maps.ControlPosition.TOP_CENTER,
+        drawingModes: [
+          // google.maps.drawing.OverlayType.MARKER,
+          // google.maps.drawing.OverlayType.CIRCLE,
+          google.maps.drawing.OverlayType.POLYGON,
+          // google.maps.drawing.OverlayType.POLYLINE,
+          // google.maps.drawing.OverlayType.RECTANGLE
+        ]
+      },
+      polygonOptions: {
+        clickable:  false
+      }
+    });
+    this.drawingManager.setMap(this.map);
   }
 
   getPropertyList(): void {
@@ -65,9 +83,9 @@ export class HomeComponent implements OnInit {
           // let pp = document.getElementsByClassName('gm-style-iw-c');
           infowindow.open(this.map, marker);
           google.maps.event.addDomListener(infowindow, 'domready', () => {
-            // $('.firstHeading').click(() => {
-            //   console.log("Hello World");
-            // });
+            $('.firstHeading').click(() => {
+              console.log("Hello World");
+            });
           });
           google.maps.event.addListener(infowindow, 'domready', function() {
 
