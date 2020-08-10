@@ -34,24 +34,32 @@ export class HomeComponent implements OnInit {
     };
     this.map = new google.maps.Map(this.mapElement.nativeElement,    mapProperties);
     this.getPropertyList();
-    this.drawingManager = new google.maps.drawing.DrawingManager({
-      drawingMode: google.maps.drawing.OverlayType.POLYGON,
-      drawingControl: true,
-      drawingControlOptions: {
-        position: google.maps.ControlPosition.TOP_CENTER,
-        drawingModes: [
-          // google.maps.drawing.OverlayType.MARKER,
-          // google.maps.drawing.OverlayType.CIRCLE,
-          google.maps.drawing.OverlayType.POLYGON,
-          // google.maps.drawing.OverlayType.POLYLINE,
-          // google.maps.drawing.OverlayType.RECTANGLE
-        ]
-      },
-      polygonOptions: {
-        clickable:  false
-      }
-    });
-    this.drawingManager.setMap(this.map);
+    // this.drawingManager = new google.maps.drawing.DrawingManager({
+    //   drawingMode: google.maps.drawing.OverlayType.POLYGON,
+    //   drawingControl: true,
+    //   drawingControlOptions: {
+    //     position: google.maps.ControlPosition.TOP_CENTER,
+    //     drawingModes: [
+    //       // google.maps.drawing.OverlayType.MARKER,
+    //       // google.maps.drawing.OverlayType.CIRCLE,
+    //       google.maps.drawing.OverlayType.POLYGON,
+    //       // google.maps.drawing.OverlayType.POLYLINE,
+    //       // google.maps.drawing.OverlayType.RECTANGLE
+    //     ]
+    //   },
+    //   polygonOptions: {
+    //     clickable:  false
+    //   }
+    // });
+    // this.drawingManager.setMap(this.map);
+
+    const centerControlDiv = document.createElement("div");
+    this.CenterControl(centerControlDiv, this.map);
+
+    // @ts-ignore TODO(jpoehnelt)
+    centerControlDiv.index = 1;
+
+    this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(centerControlDiv);
   }
 
   getPropertyList(): void {
@@ -98,6 +106,37 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  CenterControl(controlDiv: Element, map: google.maps.Map) {
+    // Set CSS for the control border.
+    const controlUI = document.createElement("div");
+    controlUI.style.backgroundColor = "#fff";
+    controlUI.style.border = "2px solid #fff";
+    controlUI.style.borderRadius = "3px";
+    controlUI.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+    controlUI.style.cursor = "pointer";
+    controlUI.style.marginTop = "10px";
+    controlUI.style.marginRight = "10px";
+    controlUI.style.marginBottom = "10px";
+    controlUI.style.textAlign = "center";
+    controlUI.title = "Click to recenter the map";
+    controlDiv.appendChild(controlUI);
+
+    // Set CSS for the control interior.
+    const controlText = document.createElement("div");
+    controlText.style.color = "rgb(25,25,25)";
+    controlText.style.fontFamily = "Roboto,Arial,sans-serif";
+    controlText.style.fontSize = "16px";
+    controlText.style.lineHeight = "38px";
+    controlText.style.paddingLeft = "5px";
+    controlText.style.paddingRight = "5px";
+    controlText.innerHTML = "Cen";
+    controlUI.appendChild(controlText);
+
+    // Setup the click event listeners: simply set the map to Chicago.
+    controlUI.addEventListener("click", () => {
+      this.map.setZoom(15);
+    });
+  }
 
 }
 
