@@ -17,3 +17,24 @@ mdb-card-img {
     }
   }
 }
+::ng-deep {
+  .gm-ui-hover-effect {
+    display: none !important;
+  }
+  .gm-style .gm-style-iw-c {
+    padding: 5px !important;
+    height: 26px;
+    width: 50px;
+    border-radius: 5px;
+  }
+  .gm-style .gm-style-iw-d {
+    overflow: hidden !important;
+  }
+  .gm-style-iw-c:hover {
+    cursor: pointer !important;
+  }
+  .firstHeading {
+    font-weight: bold;
+    color: #007bff;
+  }
+}
