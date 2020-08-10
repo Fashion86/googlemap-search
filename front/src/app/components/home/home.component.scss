@@ -22,9 +22,9 @@ mdb-card-img {
     display: none !important;
   }
   .gm-style .gm-style-iw-c {
-    padding: 5px !important;
-    height: 26px;
-    width: 50px;
+    padding: 2px !important;
+    height: 20px;
+    width: 45px;
     border-radius: 5px;
   }
   .gm-style .gm-style-iw-d {
@@ -33,7 +33,11 @@ mdb-card-img {
   .gm-style-iw-c:hover {
     cursor: pointer !important;
   }
-  .firstHeading {
+  .gm-style .gm-style-iw-t::after {
+    width: 8px;
+    height: 8px;
+  }
+  .marker-text {
     font-weight: bold;
     color: #007bff;
   }
