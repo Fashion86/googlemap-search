@@ -19,7 +19,7 @@ class PropertyController extends Controller
 
     public function getproperties(Request $request) {
         try {
-            $users = DB::table('residential')->take(10)->get();
+            $users = DB::table('residential')->take(30)->get();
             return response()->json(['success'=>true, 'data'=>$users], 201);
         } catch(\Exception $e) {
             return response()->json(['error'=>$e], 500);
