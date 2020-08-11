@@ -166,9 +166,11 @@ export class HomeComponent implements OnInit {
           "</path></svg>";
         this.poly.setPath([]);
         this.poly.setMap(null);
+        this.map.setOptions({draggableCursor: null});
       } else {
         controlText.innerHTML = "<svg viewBox=\"0 0 24 24\" class=\"cy-map-button-polygon-close sc-bdVaJa bssMCl\"><path d=\"M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z\">" +
           "</path></svg>";
+        this.map.setOptions({draggableCursor: 'crosshair'});
       }
       // this.polyAction();
     });
