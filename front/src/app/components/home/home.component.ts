@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   drawpol = false;
   markers: any[] = [];
   poly: google.maps.Polyline;
+  polygon: google.maps.Polygon;
   constructor(private http: HttpClient, private _formBuilder: FormBuilder, private _productService: ProductService) {
   }
 
@@ -38,18 +39,21 @@ export class HomeComponent implements OnInit {
     };
     this.map = new google.maps.Map(this.mapElement.nativeElement,    mapProperties);
     this.poly = new google.maps.Polyline({
-      strokeColor: "#000000",
+      strokeColor: '#000000',
       strokeOpacity: 1.0,
       strokeWeight: 3
     });
 
+    this.polygon = new google.maps.Polygon({
+      paths: this.poly.getPath(),
+      // strokeColor: "#FF0000",
+      strokeOpacity: 0.8,
+      strokeWeight: 1,
+      fillColor: 'rgba(73,78,188,0.21)',
+      fillOpacity: 0.35
+    });
+
     this.getPropertyList();
-    // this.drawingManager = new google.maps.drawing.DrawingManager({
-    //   drawingMode: google.maps.drawing.OverlayType.POLYGON,
-    //   // drawingControl: true,
-    // });
-    // this.drawingManager.setMap(this.map);
-    // this.drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
     const centerControlDiv = document.createElement("div");
     this.CenterControl(centerControlDiv, this.map);
 
@@ -60,19 +64,6 @@ export class HomeComponent implements OnInit {
 
     google.maps.event.addListener(this.map, 'click', (e) => {
         this.addLatLng(e);
-    });
-
-    google.maps.event.addListenerOnce(this.map, 'mouseup', (e) => {
-      // google.maps.event.removeListener(move);
-      if (this.drawpol) {
-        // const path = poly.getPath();
-        // poly.setMap(null);
-        //
-        // poly = new google.maps.Polygon({
-        //   map: this.map,
-        //   paths: path
-        // });
-      }
     });
   }
 
@@ -99,11 +90,9 @@ export class HomeComponent implements OnInit {
               '</div>' +
               '<span id="firstHeading' + i + '"><strong class="marker-text">$' + Math.round(this.datas[i].listprice / 1000) + 'K</strong></span>' +
               '</div>';
-
             const infowindow = new google.maps.InfoWindow({
               content: contentString
             });
-            // let pp = document.getElementsByClassName('gm-style-iw-c');
             infowindow.open(this.map, this.markers[i]);
             google.maps.event.addDomListener(infowindow, 'domready', () => {
               const idstring = '#firstHeading' + i;
@@ -122,8 +111,8 @@ export class HomeComponent implements OnInit {
       this.poly.setMap(this.map);
       const path = this.poly.getPath();
       path.push(event.latLng);
-    } else {
-      this.poly.setMap(null);
+      this.polygon.setPaths(path);
+      this.polygon.setMap(this.map);
     }
   }
 
@@ -166,13 +155,14 @@ export class HomeComponent implements OnInit {
           "</path></svg>";
         this.poly.setPath([]);
         this.poly.setMap(null);
+        this.polygon.setPaths([]);
+        this.polygon.setMap(null);
         this.map.setOptions({draggableCursor: null});
       } else {
         controlText.innerHTML = "<svg viewBox=\"0 0 24 24\" class=\"cy-map-button-polygon-close sc-bdVaJa bssMCl\"><path d=\"M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z\">" +
           "</path></svg>";
         this.map.setOptions({draggableCursor: 'crosshair'});
       }
-      // this.polyAction();
     });
   }
 
