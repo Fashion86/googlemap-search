@@ -19,12 +19,16 @@ class PropertyController extends Controller
 
     public function getproperties(Request $request) {
         try {
-            $users = DB::table('residential')->take(30)->get();
+//            SELECT *
+//            FROM `residential`
+//WHERE CONTAINS(
+//                GEOMFROMTEXT('POLYGON((48.67864188399219 -118.2366536899816, 48.476028684176704 -117.83290613138784, 48.69677379733052 -117.72166955912222, 48.67864188399219 -118.2366536899816))'),
+//                POINT(latitude, longitude));
+            $users = DB::table('residential')->take(60)->get();
             return response()->json(['success'=>true, 'data'=>$users], 201);
         } catch(\Exception $e) {
             return response()->json(['error'=>$e], 500);
         }
-
     }
 
     public function getPostById($id) {

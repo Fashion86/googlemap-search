@@ -53,7 +53,6 @@ export class HomeComponent implements OnInit {
       fillOpacity: 0.35
     });
 
-    this.getPropertyList();
     const centerControlDiv = document.createElement("div");
     this.CenterControl(centerControlDiv, this.map);
 
@@ -61,13 +60,20 @@ export class HomeComponent implements OnInit {
     centerControlDiv.index = 1;
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(centerControlDiv);
 
-
+    google.maps.event.addListenerOnce(this.map, 'zoom_changed', () => {
+      const bounds = this.map.getBounds();
+      const ne = bounds.getNorthEast(); // LatLng of the north-east corner
+      const sw = bounds.getSouthWest(); // LatLng of the south-west corder
+      console.log('ddddddddd', ne.lat(), ne.lng())
+    });
     google.maps.event.addListener(this.map, 'click', (e) => {
         this.addLatLng(e);
     });
+    this.getPropertyList();
   }
 
   getPropertyList(): void {
+
     this._productService.getPropertyList(null).subscribe(res => {
       if (res['success']) {
         this.datas = res['data'];

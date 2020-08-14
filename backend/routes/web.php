@@ -17,6 +17,5 @@ Route::get('/', function () {
     return view::make('index');
 });
 
-Route::get('property', 'PropertyController@getproperties');
 //Auth::routes(['verify' => true]);
 //Route::get('/home', 'HomeController@index')->name('home');
