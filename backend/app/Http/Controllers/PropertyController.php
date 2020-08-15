@@ -19,24 +19,26 @@ class PropertyController extends Controller
 
     public function getproperties(Request $request) {
         try {
-//            SELECT *
-//            FROM `residential`
-//WHERE CONTAINS(
-//                GEOMFROMTEXT('POLYGON((48.67864188399219 -118.2366536899816, 48.476028684176704 -117.83290613138784, 48.69677379733052 -117.72166955912222, 48.67864188399219 -118.2366536899816))'),
-//                POINT(latitude, longitude));
-            $users = DB::table('residential')->take(60)->get();
-            return response()->json(['success'=>true, 'data'=>$users], 201);
+            $points = json_decode($request->get('polygon'));
+            $polygonStr = '';
+            if ($points) {
+                for ($i = 0; $i < count($points); $i++) {
+                    if ($i == 0)
+                        $polygonStr = 'POLYGON(('.$polygonStr.strval($points[$i][0])." ".strval($points[$i][1]);
+                    else
+                        $polygonStr = $polygonStr.", ".strval($points[$i][0])." ".strval($points[$i][1]);
+                }
+                $polygonStr = $polygonStr.'))';
+                $properties = DB::select("SELECT * FROM `residential` 
+                    WHERE CONTAINS(GEOMFROMTEXT(?), POINT(latitude, longitude)) LIMIT 60", [$polygonStr]);
+                return response()->json(['success'=>true, 'data'=>$properties], 201);
+            } else {
+                $properties = DB::table('residential')->take(60)->get();
+                return response()->json(['success'=>true, 'data'=>$properties], 201);
+            }
+
         } catch(\Exception $e) {
             return response()->json(['error'=>$e], 500);
         }
-    }
-
-    public function getPostById($id) {
-
-
-    }
-
-    public function deletePost($id) {
-
     }
 }

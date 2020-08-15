@@ -60,11 +60,17 @@ export class HomeComponent implements OnInit {
     centerControlDiv.index = 1;
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(centerControlDiv);
 
-    google.maps.event.addListenerOnce(this.map, 'zoom_changed', () => {
+    google.maps.event.addListener(this.map, 'zoom_changed', (e) => {
       const bounds = this.map.getBounds();
       const ne = bounds.getNorthEast(); // LatLng of the north-east corner
       const sw = bounds.getSouthWest(); // LatLng of the south-west corder
-      console.log('ddddddddd', ne.lat(), ne.lng())
+      console.log('ddddddddd', ne.lat(), ne.lng(), sw.lat(), sw.lng())
+      const polygonData = [];
+      polygonData.push([ne.lat(), ne.lng()]);
+      polygonData.push([sw.lat(), ne.lng()]);
+      polygonData.push([sw.lat(), sw.lng()]);
+      polygonData.push([ne.lat(), sw.lng()]);
+      this.getPropertyList(polygonData);
     });
     google.maps.event.addListener(this.map, 'click', (e) => {
         this.addLatLng(e);
@@ -72,9 +78,9 @@ export class HomeComponent implements OnInit {
     this.getPropertyList();
   }
 
-  getPropertyList(): void {
+  getPropertyList(polyogon?: any[]): void {
 
-    this._productService.getPropertyList(null).subscribe(res => {
+    this._productService.getPropertyList(polyogon).subscribe(res => {
       if (res['success']) {
         this.datas = res['data'];
         for (let i = 0; i <= this.datas.length; i++) {

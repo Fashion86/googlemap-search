@@ -11,7 +11,10 @@ export class ProductService {
   constructor(private _http: HttpClient) { }
 
   getPropertyList(polygon?: any[]): Observable<any> {
-    return this._http.get<any>(`${this.baseUrl}/api/property${polygon && polygon.length > 2 ? '?polygon=' + polygon : ''}`, {
+    if (polygon && polygon.length > 2)
+      polygon.push(polygon[0]);
+    const arrStr = (JSON.stringify(polygon));
+    return this._http.get<any>(`${this.baseUrl}/api/property${polygon && polygon.length > 2 ? '?polygon=' + arrStr : ''}`, {
       headers: {
         'Content-Type': 'application/json'
       }});
