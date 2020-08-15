@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   markers: any[] = [];
   poly: google.maps.Polyline;
   polygon: google.maps.Polygon;
+  loading = true;
   constructor(private http: HttpClient, private _formBuilder: FormBuilder, private _productService: ProductService) {
   }
 
@@ -61,16 +62,10 @@ export class HomeComponent implements OnInit {
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(centerControlDiv);
 
     google.maps.event.addListener(this.map, 'zoom_changed', (e) => {
-      const bounds = this.map.getBounds();
-      const ne = bounds.getNorthEast(); // LatLng of the north-east corner
-      const sw = bounds.getSouthWest(); // LatLng of the south-west corder
-      console.log('ddddddddd', ne.lat(), ne.lng(), sw.lat(), sw.lng())
-      const polygonData = [];
-      polygonData.push([ne.lat(), ne.lng()]);
-      polygonData.push([sw.lat(), ne.lng()]);
-      polygonData.push([sw.lat(), sw.lng()]);
-      polygonData.push([ne.lat(), sw.lng()]);
-      this.getPropertyList(polygonData);
+      this.getpropertyByBounds();
+    });
+    google.maps.event.addListener(this.map, 'dragend', (e) => {
+      this.getpropertyByBounds();
     });
     google.maps.event.addListener(this.map, 'click', (e) => {
         this.addLatLng(e);
@@ -78,9 +73,36 @@ export class HomeComponent implements OnInit {
     this.getPropertyList();
   }
 
-  getPropertyList(polyogon?: any[]): void {
+  getpropertyByBounds() {
+    if (this.polygon && this.polygon.getPaths().getLength() > 0) {
+      const polyArray = [];
+      this.polygon.getPath().forEach(p => {
+        polyArray.push([p.lat(), p.lng()]);
+      });
+      this.getPropertyList(polyArray);
+    } else {
+      const bounds = this.map.getBounds();
+      const ne = bounds.getNorthEast(); // LatLng of the north-east corner
+      const sw = bounds.getSouthWest(); // LatLng of the south-west corder
+      const polygonData = [];
+      polygonData.push([ne.lat(), ne.lng()]);
+      polygonData.push([sw.lat(), ne.lng()]);
+      polygonData.push([sw.lat(), sw.lng()]);
+      polygonData.push([ne.lat(), sw.lng()]);
+      this.getPropertyList(polygonData);
+    }
 
-    this._productService.getPropertyList(polyogon).subscribe(res => {
+  }
+
+  getPropertyList(polyogon?: any[]): void {
+    this.markers.forEach(m => {
+      m.setMap(null);
+    });
+    this.markers = [];
+    this.datas = [];
+    this.loading = true;
+    this._productService.getPropertyList(polyogon).subscribe (res => {
+      this.loading = false;
       if (res['success']) {
         this.datas = res['data'];
         for (let i = 0; i <= this.datas.length; i++) {
@@ -107,7 +129,6 @@ export class HomeComponent implements OnInit {
             });
             infowindow.open(this.map, this.markers[i]);
             google.maps.event.addDomListener(infowindow, 'domready', () => {
-              const idstring = '#firstHeading' + i;
               $('#firstHeading' + i).click(() => {
                 console.log("Hello World" + this.datas[i].id);
               });
@@ -115,6 +136,9 @@ export class HomeComponent implements OnInit {
           }
         }
       }
+    }, err => {
+      console.log(err);
+      this.loading = false;
     });
   }
 
@@ -130,11 +154,7 @@ export class HomeComponent implements OnInit {
         this.polygon.getPath().forEach(p => {
           polyArray.push([p.lat(), p.lng()]);
         });
-        this._productService.getPropertyList(polyArray).subscribe(res => {
-          if (res['success']) {
-            this.datas = res['data'];
-          }
-        });
+        this.getPropertyList(polyArray);
       }
     }
   }
@@ -181,11 +201,12 @@ export class HomeComponent implements OnInit {
         this.polygon.setPaths([]);
         this.polygon.setMap(null);
         this.map.setOptions({draggableCursor: null});
-        this.getPropertyList();
+        this.getpropertyByBounds();
       } else {
         controlText.innerHTML = "<svg viewBox=\"0 0 24 24\" class=\"cy-map-button-polygon-close sc-bdVaJa bssMCl\"><path d=\"M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z\">" +
           "</path></svg>";
         this.map.setOptions({draggableCursor: 'crosshair'});
+        // this.getpropertyByBounds();
       }
     });
   }
