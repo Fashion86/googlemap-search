@@ -30,10 +30,10 @@ class PropertyController extends Controller
                 }
                 $polygonStr = $polygonStr.'))';
                 $properties = DB::select("SELECT * FROM `residential` 
-                    WHERE CONTAINS(GEOMFROMTEXT(?), POINT(latitude, longitude)) LIMIT 100", [$polygonStr]);
+                    WHERE CONTAINS(GEOMFROMTEXT(?), POINT(latitude, longitude)) LIMIT 150", [$polygonStr]);
                 return response()->json(['success'=>true, 'data'=>$properties], 201);
             } else {
-                $properties = DB::table('residential')->take(100)->get();
+                $properties = DB::table('residential')->take(150)->get();
                 return response()->json(['success'=>true, 'data'=>$properties], 201);
             }
 

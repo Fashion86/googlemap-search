@@ -7,7 +7,8 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class ProductService {
-  baseUrl = 'http://127.0.0.1:8000';
+  // baseUrl = 'http://127.0.0.1:8000';
+  baseUrl = 'https://map.spokane-paint.com';
   constructor(private _http: HttpClient) { }
 
   getPropertyList(polygon?: any[]): Observable<any> {
@@ -18,10 +19,5 @@ export class ProductService {
       headers: {
         'Content-Type': 'application/json'
       }});
-
-    // return this._http.post<any>(`${this.baseUrl}/property`, {
-    //   poygon: polygon}, {headers: {
-    // 'Content-Type': 'application/json'
-    // }});
   }
 }
